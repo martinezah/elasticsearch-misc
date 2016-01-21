@@ -67,7 +67,8 @@ print 'Found {} snapshots; last successful snapshot was {}'.format(counts['total
     
 # if most recent success is within age range, delete all snapshots outside age range
 # otherwise, delete all snapshots prior to most recent success
-purge_date = int(time.time()*1000) - (RETENTION_DAYS * 24 * 60 * 60 * 1000)
+purge_date = int(time.time() * 1000) - (RETENTION_DAYS * 24 * 60 * 60 * 1000)
+
 if last_success < purge_date:
     purge_date = last_success
     print "WARNING: no successful snapshots in retention range"
