@@ -44,6 +44,7 @@ counts = {'total': 0, 'purged': 0, 'retained': 0, 'failed': 0}
 print 'Getting snapshot data...'
 rr = requests.get('{}/_snapshot/{}/_all'.format(ES_URL, ES_REPO), auth=(ES_USER, ES_PASS))
 if rr.status_code != 200:
+    print rr.text
     print 'ERROR: could not retrieve snapshot data; aborting'
     sys.exit(1)    
 _snapshots = rr.json()
@@ -79,8 +80,8 @@ for snapshot in _snapshots['snapshots']:
         if (rr.status_code == 200):
             counts['purged'] += 1
         else:
-            print rr.text
             counts['failed'] += 1
+            print rr.text
     else:        
         counts['retained'] += 1
         
